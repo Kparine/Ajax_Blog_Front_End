@@ -8,51 +8,140 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-  <script defer src="/bundle.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+  <script defer src="bundle.js"></script>
 </head>
 
 <body>
-  <!-- <div class="container"> -->
 
-  <section class="has-background-light" id="titleBar">
+  <section id="titleBar">
     <div class="hero-body">
       <div class="container">
         <h1 class="title has-text-white">
-          Pour Me A Glass...
+            Pour Me A Glass...
         </h1>
         <h2 class="subtitle has-text-white">
-          from those Earl Grey Skies
+          from those Earl Grey Skies 
         </h2>
       </div>
     </div>
   </section>
-  <section class="row container">
-    <div class="columns section is-5">
+
+  <!-- Left empty for spacing -->
+
+  <section class="container" id="form">
+    <div class="columns">
       <div class="column">
-        <article class="media">
-          <div class="media-content">
+        <aside class="menu">
+          <p class="menu-label">
+            <strong>Previous Posts</strong>
+          </p>
+          <ul class="menu-list">
+            <li><a>This is where the previous post will appear</a></li>
+            <li><a>This is where the previous post will appear</a></li>
+            <li><a>This is where the previous post will appear</a></li>
+            <li><a>This is where the previous post will appear</a></li>
+            <li><a>This is where the previous post will appear</a></li>
+          </ul>
+        </aside>
+      </div>
+
+      <!-- Left empty for spacing -->
+
+      <div class="column is-three-quarters">
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">Title</label>
+          </div>
+          <div class="field-body">
             <div class="field">
-              <p class="control">
-                <textarea class="textarea" placeholder="Add your thoughts..."></textarea>
+              <div class="control">
+                <input class="input" type="text"  id='title' placeholder="Title...">
+              </div>
+              <p class="help is-danger">
+                ...required
               </p>
             </div>
-            <nav class="level">
-              <div class="level-left">
-                <div class="level-item">
-                  <a class="button has-text-light level-left" id="Submit">Submit</a>
-                  <a class="button has-text-light level-left" id="Edit">Edit</a>
-                  <a class="button has-text-light level-left" id="Delete">Delete</a>
-                  <span></span>
-                </div>
-              </div>
           </div>
-      </div>
-    </div>
+        </div>
+
+        <div class="field is-horizontal" >
+          <div class="field-label is-normal">
+            <label class="label">Post</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <textarea class="textarea" id='content' placeholder="☔ Pour out some thoughts..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field is-horizontal">
+          <div class="field-label">
+
+            <!-- Left empty for spacing -->
+
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <button class="button" id='submit'>POST</button>
+                <!-- <button class="button">EDIT</button> -->
+                <!-- <button class="button">DELETE</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- THIS IS WHERE THE SUBMITTED BLOGS NEED TO POPULATE -->
+
+        <div class="column">
+          <article class="message" id='msg'>
+            <div class="message-header">
+              <p>BLOG TITLE ️🌧️ </p>
+              <div class="field is-grouped">
+                <p class="control">
+                  <button class="button is-inverted is-outlined is-small is-rounded align-right" id="edit">EDIT</button>
+                </p>
+                <p class="control">
+                  <button class="delete" aria-label="delete" id="delete"></button>
+                </p>
+              </div>
+            </div>
+            <div class="message-body">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, tempus
+              quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus
+              diam, et dictum <a>felis venenatis</a> efficitur. Aenean ac <em>eleifend lacus</em>, in mollis lectus.
+              Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque.
+              Donec dui urna, vehicula et sem eget, facilisis sodales sem.
+            </div>
+          </article>
+
+          <article class="message" id='msg'>
+            <div class="message-header">
+              <p>BLOG TITLE 🌧️ </p>
+              <div class="field is-grouped">
+                <p class="control">
+                  <button data-id="" class="button is-inverted is-outlined is-small is-rounded align-right">EDIT</button>
+                </p>
+                <p class="control">
+                  <button data-id="" class="delete" aria-label="delete"></button>
+                </p>
+              </div>
+            </div>
+            <div class="message-body">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, tempus
+              quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus
+              diam, et dictum <a>felis venenatis</a> efficitur. Aenean ac <em>eleifend lacus</em>, in mollis lectus.
+              Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque.
+              Donec dui urna, vehicula et sem eget, facilisis sodales sem.
+            </div>
+          </article>
+        </div>
   </section>
-  </nav>
-  </div>
-  </article>
+
 </body>
 
 </html>
