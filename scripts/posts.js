@@ -1,5 +1,7 @@
 const axios = require('axios')
-const heroku = 'https://git.heroku.com/secret-scrubland-84127.git'
+const heroku = 'http://localhost:3000'
+
+// https://secret-scrubland-84127.herokuapp.com/
 
 function getAll() {
   return axios.get(heroku)

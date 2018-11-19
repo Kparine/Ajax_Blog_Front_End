@@ -1,5 +1,4 @@
-const {eventListener, inform} = require('')
-const { read, write } = require('')
+const {eventListener, inform} = require('./posts')
 const { render, append } = require('')
 
 
