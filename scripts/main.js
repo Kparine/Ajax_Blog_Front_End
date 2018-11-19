@@ -1,60 +1,32 @@
-const {eventListener, inform} = require('./posts')
-const { render, append } = require('')
+const {
+  getAll,
+  getOne,
+  create,
+  update,
+  del
+} = require('./posts')
 
 
-//RENDER DATA HERE ON INITIAL BROWSER LOAD
+// RENDER DATA HERE ON INITIAL BROWSER LOAD
 const submit = document.querySelector('#submit')
 const title = document.querySelector('#title')
 const content = document.querySelector('#content')
 
-submit.addEventListener('click', function () {
-  title.value = ''
-  content.value = ''
-}, false)
+getAll()
+  .then((response) => {
+    renderOptions(response.data)
+    addButtonEvents()
+  })
 
-
-eventListener('.cancel-post', 'click', (e) => {
-  e.preventDefault()
-  document.querySelector('#form').classList.add('is-hidden')
+// PREVENT SUBMISSION OF POST IF NEITHER TITLE NOR CONTENT FIELDS HAVE BEEN POPULATED
+submit.addEventListener('submit', (e) => {
+  if (!e.target.title.value || !e.target.content.value) {
+    e.target.attribute.remove('disabled')
+  }
 })
 
-eventListener('#form', 'submit', (e) => {
-  e.preventDefault()
-  e.target.classList.add('is-hidden')
-
-
-const article = {
-  id: '',
-  title: e.target.title.value,
-  content: e.target.title.value
-}
-
-
-
-
-create(blogEntry)
-    .then(read)
-    .then(response => {
-      render(response.data)
-      inform('#notice', 'New Entry Has Been Posted', 2000)
-    })
-    .catch(error => notify('#errorWindow', 'All Fields are Required', 2500))
-
-  e.target.reset()
-})
-
-read().then(response => renderPost(response.data))
-// // ADD THE UNIQUE ID HERE IN ORDER TO EDIT IT
-// const msgBody = document.querySelector(msgID)
-// const edit = document.querySelector('#edit')
-// edit.addEventListener('click', function(){
-
-// })
-
-
-// // ADD THE UNIQUE ID HERE IN ORDER TO DELETE IT
-// const 
-// const del = document.querySelector('#delete')
-// del.addEventListener('click', function(){
-
-// })
+  // CLEARS TEXT AREA AFTER SUBMITTING SUCCESSFUL SUBMISSION,
+  submit.addEventListener('click', function () {
+    title.value = ''
+    content.value = ''
+  }, false)

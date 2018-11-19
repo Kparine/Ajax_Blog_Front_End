@@ -51,23 +51,20 @@
       <div class="column is-three-quarters">
         <div class="field is-horizontal">
           <div class="field-label is-normal">
-            <label class="label">Title</label>
+            <label class="label">Title<span id="req"> *</span></label>
           </div>
           <div class="field-body">
             <div class="field">
               <div class="control">
                 <input class="input" type="text"  id='title' placeholder="Title...">
               </div>
-              <p class="help is-danger">
-                ...required
-              </p>
             </div>
           </div>
         </div>
 
         <div class="field is-horizontal" >
           <div class="field-label is-normal">
-            <label class="label">Post</label>
+            <label class="label">Post<span id="req"> *</span></label>
           </div>
           <div class="field-body">
             <div class="field">
@@ -87,9 +84,12 @@
           <div class="field-body">
             <div class="field">
               <div class="control">
-                <button class="button" id='submit'>POST</button>
-                <!-- <button class="button">EDIT</button> -->
-                <!-- <button class="button">DELETE</button> -->
+                <a class="button" id="submit" title="Disabled button" disabled>
+                  <span class="icon is-small">
+                    <i class="fas fa-check"></i>
+                  </span>
+                  <span>POST</span>
+                </a>
               </div>
             </div>
           </div>
@@ -98,7 +98,7 @@
         <!-- THIS IS WHERE THE SUBMITTED BLOGS NEED TO POPULATE -->
 
         <div class="column">
-          <article class="message" id='msg'>
+          <article class="message hidden" id='msg'>
             <div class="message-header">
               <p>BLOG TITLE ️🌧️ </p>
               <div class="field is-grouped">
@@ -107,27 +107,6 @@
                 </p>
                 <p class="control">
                   <button class="delete" aria-label="delete" id="delete"></button>
-                </p>
-              </div>
-            </div>
-            <div class="message-body">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, tempus
-              quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus
-              diam, et dictum <a>felis venenatis</a> efficitur. Aenean ac <em>eleifend lacus</em>, in mollis lectus.
-              Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque.
-              Donec dui urna, vehicula et sem eget, facilisis sodales sem.
-            </div>
-          </article>
-
-          <article class="message" id='msg'>
-            <div class="message-header">
-              <p>BLOG TITLE 🌧️ </p>
-              <div class="field is-grouped">
-                <p class="control">
-                  <button data-id="" class="button is-inverted is-outlined is-small is-rounded align-right">EDIT</button>
-                </p>
-                <p class="control">
-                  <button data-id="" class="delete" aria-label="delete"></button>
                 </p>
               </div>
             </div>
