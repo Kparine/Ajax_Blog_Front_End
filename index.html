@@ -18,10 +18,10 @@
     <div class="hero-body">
       <div class="container">
         <h1 class="title has-text-white">
-            Pour Me A Glass...
+          Pour Me A Glass...
         </h1>
         <h2 class="subtitle has-text-white">
-          from those Earl Grey Skies 
+          from those Earl Grey Skies
         </h2>
       </div>
     </div>
@@ -56,35 +56,32 @@
           <div class="field-body">
             <div class="field">
               <div class="control">
-                <input class="input" type="text"  id='title' placeholder="Title...">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="field is-horizontal" >
-          <div class="field-label is-normal">
-            <label class="label">Post<span id="req"> *</span></label>
-          </div>
-          <div class="field-body">
-            <div class="field">
-              <div class="control">
-                <textarea class="textarea" id='content' placeholder="☔ Pour out some thoughts..."></textarea>
+                <input class="input" type="text" id='title' name='title' placeholder="Title...">
               </div>
             </div>
           </div>
         </div>
 
         <div class="field is-horizontal">
-          <div class="field-label">
-
-            <!-- Left empty for spacing -->
-
+          <div class="field-label is-normal">
+            <label class="label">Post<span id="req"> *</span></label>
           </div>
           <div class="field-body">
             <div class="field">
               <div class="control">
-                <a class="button" id="submit" title="Disabled button" disabled>
+                <textarea class="textarea" id="content" name='content' placeholder="☔ Pour out some thoughts..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field is-horizontal">
+          <div class="field-label">
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <a class="button" id="newPost" disabled>
+                  <span class="error-msg"></span>
                   <span class="icon is-small">
                     <i class="fas fa-check"></i>
                   </span>
@@ -118,6 +115,7 @@
               Donec dui urna, vehicula et sem eget, facilisis sodales sem.
             </div>
           </article>
+        </div>
         </div>
   </section>
 

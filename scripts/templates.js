@@ -1,3 +1,7 @@
+function menuTemplate({ id, title }) {
+  return `<option value="${id}" class="post-option" data-id="${id}">${title}</option>`
+}
+
 function postTemplate({ title, content }) {
   return `<article class="message" id='msg'>
   <div class="message-header">
@@ -18,4 +22,4 @@ function postTemplate({ title, content }) {
   `
 }
 
-module.exports = { postTemplate }
+module.exports = { postTemplate, menuTemplate }
