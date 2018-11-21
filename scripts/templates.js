@@ -1,5 +1,5 @@
 function menuTemplate({ id, title }) {
-  return `<option value="${id}" class="menuArr" data-id="${id}">${title}</option>`
+  return `<li value="${id}" class="menuArr" data-id="${id}">${title}</li>`
 }
 
 function postTemplate({ title, content }) {
