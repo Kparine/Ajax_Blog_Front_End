@@ -14,6 +14,7 @@ const {
 
 //RENDER ALL POSTS INTIALLY
 //renderPost, addBtnEvents are functions 
+
 getAll()
   .then((response) => {
     renderPost(response.data)
@@ -28,12 +29,64 @@ const submit = document.querySelector('#newPost')
 const title = document.querySelector('#title')
 const content = document.querySelector('#content')
 
-submit.addEventListener('click', function (e) {
-  if (title.value && content.value) {
-    document.getElementById('newPost').removeAttribute('disabled')
-    document.querySelector('.message').classList.remove('hidden')
-    title.value = ''
-    content.value = ''
-  }
-}, false)
 
+content.addEventListener('change', function (e) {
+  if (title.value && content.value) {
+    document.getElementById('newPost').classList.remove('hide')
+  }
+
+  submit.addEventListener('click', function (e) {
+    if (title.value && content.value) {
+      document.querySelector('.message').classList.remove('hide')
+      title.value = ''
+      content.value = ''
+    }
+  }, false)
+
+  const newPost = {
+    title: title.value,
+    content: content.value
+  }
+
+  create(newPost)
+    .then((response) => {
+      return getAll()
+    })
+    .then((response) => {
+      renderPost(response.data)
+    })
+})
+//getOne, update HERE
+
+
+//ADD EDIT AND DELETE BUTTON EVENTS
+function addBtnEvents() {
+  const editBtn = document.querySelector('#edit')
+
+  editBtn.addEventListener('click', (e) => {
+    post.classList.add('hide')
+
+      .then((response) => {
+        editTitle.value = response.data.data.title
+        editContent.value = response.data.data.content
+      })
+  })
+}
+
+
+//RENDER POSTS AND MENU
+function renderPost(posts) {
+  const postList = posts.map(post => menuTemplate(post))
+
+  postList.innerHTML = menuArr.join('')
+
+  postList.addEventListener('change', (e) => {
+    post.classList.remove('hide')
+
+    getAll(postList.value)
+      .then((response) => {
+        message.innerHTML = postTemplate(response.data.data)
+        addBtnEvents()
+      })
+  })
+}

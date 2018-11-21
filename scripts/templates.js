@@ -1,9 +1,10 @@
 function menuTemplate({ id, title }) {
-  return `<option value="${id}" class="post-option" data-id="${id}">${title}</option>`
+  return `<option value="${id}" class="menuArr" data-id="${id}">${title}</option>`
 }
 
 function postTemplate({ title, content }) {
-  return `<article class="message" id='msg'>
+  return `
+  <article class="message" id='msg'>
   <div class="message-header">
     <p> ${ title }️🌧️ </p>
     <div class="field is-grouped">
