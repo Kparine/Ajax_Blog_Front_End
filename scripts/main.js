@@ -29,33 +29,44 @@ const submit = document.querySelector('#newPost')
 const title = document.querySelector('#title')
 const content = document.querySelector('#content')
 
+title.addEventListener('keyup', checkValid)
 
-content.addEventListener('change', function (e) {
+content.addEventListener('keyup', checkValid)
+
+submit.addEventListener('click', handleSubmit)
+
+function checkValid(e) {
   if (title.value && content.value) {
     document.getElementById('newPost').classList.remove('hide')
   }
+}
 
-  submit.addEventListener('click', function (e) {
-    if (title.value && content.value) {
-      document.querySelector('.message').classList.remove('hide')
-      title.value = ''
-      content.value = ''
+function handleSubmit(){
+
+  if (title.value && content.value) {
+    document.querySelector('.message').classList.remove('hide')
+    
+    const newPost = {
+      title: title.value,
+      content: content.value
     }
-  }, false)
-
-  const newPost = {
-    title: title.value,
-    content: content.value
+  
+    create(newPost)
+      .then((response) => {
+        return getAll()
+      })
+      .then((response) => {
+        renderPost(response.data)
+      })
+    
+    title.value = ''
+    content.value = ''
   }
 
-  create(newPost)
-    .then((response) => {
-      return getAll()
-    })
-    .then((response) => {
-      renderPost(response.data)
-    })
-})
+
+}
+
+
 //getOne, update HERE
 
 
