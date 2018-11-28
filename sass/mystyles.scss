@@ -32,8 +32,14 @@ h3 {
 .hide {
   display: none
 }
-.menu-list a:hover {
+.menuArr a:hover {
   background-color: lighten($color, 20%);
+}
+#cancel {
+  background-color: lighten(red, 20%);
+}
+#update {
+  background-color: lighten(green, 50%);
 }
 #req {
   color: red;

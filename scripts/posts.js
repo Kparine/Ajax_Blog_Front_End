@@ -1,5 +1,5 @@
 const axios = require('axios')
-const heroku = 'http://localhost:3000'
+const heroku = 'http://localhost:3000/posts'
 
 // https://secret-scrubland-84127.herokuapp.com/
 
@@ -23,4 +23,10 @@ function del(id) {
   return axios.delete(heroku + '/' + id)
 }
 
-module.exports = { getAll, getOne, create, update, del }
+module.exports = {
+  getAll,
+  getOne,
+  create,
+  update,
+  del
+}

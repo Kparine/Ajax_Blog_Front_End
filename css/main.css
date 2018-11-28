@@ -6768,8 +6768,14 @@ h3 {
 .hide {
   display: none; }
 
-.menu-list a:hover {
+.menuArr a:hover {
   background-color: #c7d4ea; }
+
+#cancel {
+  background-color: #ff6666; }
+
+#update {
+  background-color: #80ff80; }
 
 #req {
   color: red; }

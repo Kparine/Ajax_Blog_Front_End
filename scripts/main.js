@@ -6,33 +6,30 @@ const {
   del
 } = require('./posts')
 const {
-  postTemplate
+  postTemplate,
+  menuTemplate
 } = require('./templates')
 
-// PREVENT SUBMISSION OF POST IF NEITHER TITLE NOR CONTENT FIELDS HAVE BEEN POPULATED
-
-
-//RENDER ALL POSTS INTIALLY
-//renderPost, addBtnEvents are functions 
-
+////////////////////////////////////////////////////////////////////////////////////////////
+//                                     GET ALL
+////////////////////////////////////////////////////////////////////////////////////////////
 getAll()
   .then((response) => {
-    renderPost(response.data)
-    addBtnEvents()
+    renderPost(response.data.data)
   })
-
-//ENABLE POST BUTTON ONCHANGE FROM TITLE AND CONTENT FIELDS
-//ONCE THE POST BUTTON HAS BEEN 'CLICKED' REMOVE THE HIDDEN 
-//CLASS FROM MESSAGE AND CLEAR THE TITLE AND CONTENTS FIELDS
-
+///////////////////////////////////////////////////////////////////////////////////////////
+// 1. ENABLE POST BUTTON ONCHANGE FROM TITLE AND CONTENT FIELDS
+// 2. ONCE THE POST BUTTON HAS BEEN 'CLICKED' REMOVE THE HIDDEN 
+// CLASS FROM MESSAGE AND CLEAR THE TITLE AND CONTENTS FIELDS
+////////////////////////////////////////////////////////////////////////////////////////////
 const submit = document.querySelector('#newPost')
 const title = document.querySelector('#title')
 const content = document.querySelector('#content')
+const postList = document.querySelector('.menu-list')
+const message = document.querySelector('.message')
 
 title.addEventListener('keyup', checkValid)
-
 content.addEventListener('keyup', checkValid)
-
 submit.addEventListener('click', handleSubmit)
 
 function checkValid(e) {
@@ -41,63 +38,145 @@ function checkValid(e) {
   }
 }
 
-function handleSubmit(){
-
+function handleSubmit() {
   if (title.value && content.value) {
     document.querySelector('.message').classList.remove('hide')
-    
+
     const newPost = {
       title: title.value,
       content: content.value
     }
-  
+
     create(newPost)
       .then((response) => {
+        displayOne(response.data)
+        addBtnEvents()
         return getAll()
       })
       .then((response) => {
-        renderPost(response.data)
+        renderPost(response.data.data)
       })
-    
+
     title.value = ''
     content.value = ''
   }
+}
+////////////////////////////////////////////////////////////////////////////////////////////
+// GET ONE
+// 1. CHOOSE ONE FROM SIDE MENU LIST (id) AND DISPLAY BELOW TEXT AREA (ONLY DISPLAYING ONE)
+////////////////////////////////////////////////////////////////////////////////////////////
+const grab = document.querySelector('.menu-list')
 
+grab.addEventListener('click', selectPost)
+
+function selectPost(e) {
+  document.querySelector('.message').classList.remove('hide')
+  getOne(e.target.getAttribute('data-id'))
+
+    .then((response) => {
+      displayOne(response.data.data)
+      return getAll()
+    })
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//                                    EDIT POST
+// 1. GRAB THE CONTENTS OF THE POST AND PUT THEM INTO THE MESSAGE TEMPLATE
+////////////////////////////////////////////////////////////////////////////////////////////
+function editPost(e) {
+  document.querySelector('#newPost').classList.add('hide')
+  document.querySelector('.message').classList.add('hide')
+  document.querySelector('#update').classList.remove('hide')
+  document.querySelector('#cancel').classList.remove('hide')
+
+  const titleHeader = document.querySelector('.titleEdit')
+  const contentBody = document.querySelector('.message-body')
+  const title = document.querySelector('#title')
+  const content = document.querySelector('.textarea')
+
+  getAll(postList.value)
+    .then((response) => {
+      title.value = titleHeader.innerHTML
+      content.innerHTML = contentBody.innerHTML
+    })
 
 }
 
+// SUBMIT EDIT
+function updatePost(e) {
+  const titleHeader = document.querySelector('.titleEdit')
+  const contentBody = document.querySelector('.message-body')
+  const title = document.querySelector('#title')
+  const content = document.querySelector('.textarea')
 
-//getOne, update HERE
+  update(e.target.getAttribute('data-id'))
+  getAll(postList.value)
+    .then((response) => {
+      title.value = titleHeader.innerHTML
+      content.value = contentBody.innerHTML
+    })
+}
 
+// CANCEL EDIT
+function cancelEdit(e) {
+  document.querySelector('#update').classList.add('hide')
+  document.querySelector('#cancel').classList.add('hide')
+  document.querySelector('.message').classList.remove('hide')
 
-//ADD EDIT AND DELETE BUTTON EVENTS
+      title.value = ''
+      content.value = ''
+      return getAll()
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//                                    DELETE
+// 1. DELETE WILL REMOVE MESSAGE (ALSO FROM LIST) AND DISPLAY LATEST POST
+////////////////////////////////////////////////////////////////////////////////////////////
+function removePost(e) {
+  del(e.target.getAttribute('data-id'))
+    .then((response) => {
+      message.innerHTML = ''
+      return getAll()
+    })
+    .then((response) => {
+      renderPost(response.data.data)
+    })
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//                                ADD BUTTON EVENTS
+////////////////////////////////////////////////////////////////////////////////////////////
 function addBtnEvents() {
+  const delBtn = document.querySelector('#del')
   const editBtn = document.querySelector('#edit')
+  const cancelBtn = document.querySelector('#cancel')
+  const editSubmit = document.querySelector('#update')
 
-  editBtn.addEventListener('click', (e) => {
-    post.classList.add('hide')
-
-      .then((response) => {
-        editTitle.value = response.data.data.title
-        editContent.value = response.data.data.content
-      })
-  })
+  delBtn.addEventListener('click', removePost)
+  editBtn.addEventListener('click', editPost)
+  cancelBtn.addEventListener('click', cancelEdit)
+  editSubmit.addEventListener('click', updatePost)
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+//                             RENDER POSTS AND MENU ARRAY                      
+////////////////////////////////////////////////////////////////////////////////////////////
+function displayOne(post) {
+  message.innerHTML = postTemplate(post)
+  addBtnEvents()
+}
 
-//RENDER POSTS AND MENU
 function renderPost(posts) {
-  const postList = posts.map(post => menuTemplate(post))
+  const postListHtml = posts.map(post => menuTemplate(post))
 
-  postList.innerHTML = menuArr.join('')
+  postList.innerHTML = postListHtml.join('')
 
   postList.addEventListener('change', (e) => {
-    post.classList.remove('hide')
+    newPost.classList.remove('hide')
 
     getAll(postList.value)
       .then((response) => {
         message.innerHTML = postTemplate(response.data.data)
-        addBtnEvents()
       })
   })
 }

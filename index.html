@@ -37,7 +37,6 @@
             <strong>Previous Posts</strong>
           </p>
           <ul class="menu-list">
-            <li><a class='postList'>This is where the previous post will appear</a></li>
           </ul>
         </aside>
       </div>
@@ -83,6 +82,20 @@
                   </span>
                   <span>POST</span>
                 </a>
+                <a class="button hide" id="update">
+                  <span class="error-msg"></span>
+                  <span class="icon is-small">
+                    <i class="fas fa-edit"></i>
+                  </span>
+                  <span>UPDATE</span>
+                </a>
+                <a class="button hide" id="cancel">
+                  <span class="error-msg"></span>
+                  <span class="icon is-small">
+                    <i class="fas fa-times"></i>
+                  </span>
+                  <span>CANCEL</span>
+                </a>
               </div>
             </div>
           </div>
@@ -91,21 +104,20 @@
         <!-- THIS IS WHERE THE SUBMITTED BLOGS NEED TO POPULATE -->
 
         <div class="column">
-          <article class="message hide" id='msg'>
-            <div class="message-header">
-              <p>BLOG TITLE ️🌧️ </p>
+          <article class="message hide">
+            <div class="message-header"> 
+              <p></p>
               <div class="field is-grouped">
                 <p class="control">
                   <button class="button is-inverted is-outlined is-small is-rounded align-right" id="edit">EDIT</button>
                 </p>
                 <p class="control">
-                  <button class="delete" aria-label="delete" id="delete"></button>
+                  <button class="delete" aria-label="delete"></button> 
                 </p>
               </div>
             </div>
             <div class="message-body">
-              this is where the content of the blog post will live.
-            </div>
+            </div> 
           </article>
         </div>
         </div>
