@@ -1,5 +1,5 @@
 const axios = require('axios')
-const heroku = 'https://secret-scrubland-84127.herokuapp.com/'
+const heroku = 'https://secret-scrubland-84127.herokuapp.com/posts'
 
 
 function getAll() {
