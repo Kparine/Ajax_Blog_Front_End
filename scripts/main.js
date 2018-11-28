@@ -7,7 +7,9 @@ const {
 } = require('./posts')
 const {
   postTemplate,
-  menuTemplate
+  menuTemplate,
+  updateTemplate,
+  postButtonTemplate
 } = require('./templates')
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,12 +19,12 @@ getAll()
   .then((response) => {
     renderPost(response.data.data)
   })
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 // 1. ENABLE POST BUTTON ONCHANGE FROM TITLE AND CONTENT FIELDS
 // 2. ONCE THE POST BUTTON HAS BEEN 'CLICKED' REMOVE THE HIDDEN 
 // CLASS FROM MESSAGE AND CLEAR THE TITLE AND CONTENTS FIELDS
 ////////////////////////////////////////////////////////////////////////////////////////////
-const submit = document.querySelector('#newPost')
 const title = document.querySelector('#title')
 const content = document.querySelector('#content')
 const postList = document.querySelector('.menu-list')
@@ -30,17 +32,19 @@ const message = document.querySelector('.message')
 
 title.addEventListener('keyup', checkValid)
 content.addEventListener('keyup', checkValid)
-submit.addEventListener('click', handleSubmit)
 
 function checkValid(e) {
   if (title.value && content.value) {
-    document.getElementById('newPost').classList.remove('hide')
+    renderPostButton()
+    const submit = document.querySelector('#newPost')
+    submit.addEventListener('click', handleSubmit)
   }
 }
 
 function handleSubmit() {
   if (title.value && content.value) {
     document.querySelector('.message').classList.remove('hide')
+
 
     const newPost = {
       title: title.value,
@@ -56,7 +60,6 @@ function handleSubmit() {
       .then((response) => {
         renderPost(response.data.data)
       })
-
     title.value = ''
     content.value = ''
   }
@@ -83,21 +86,23 @@ function selectPost(e) {
 //                                    EDIT POST
 // 1. GRAB THE CONTENTS OF THE POST AND PUT THEM INTO THE MESSAGE TEMPLATE
 ////////////////////////////////////////////////////////////////////////////////////////////
-function editPost(e) {
-  document.querySelector('#newPost').classList.add('hide')
+function editPost(post) {
   document.querySelector('.message').classList.add('hide')
-  document.querySelector('#update').classList.remove('hide')
-  document.querySelector('#cancel').classList.remove('hide')
+
+  displayButton(post)
 
   const titleHeader = document.querySelector('.titleEdit')
   const contentBody = document.querySelector('.message-body')
   const title = document.querySelector('#title')
   const content = document.querySelector('.textarea')
 
+  title.removeEventListener('keyup', checkValid)
+  content.removeEventListener('keyup', checkValid)
+
   getAll(postList.value)
     .then((response) => {
       title.value = titleHeader.innerHTML
-      content.innerHTML = contentBody.innerHTML
+      content.value = contentBody.innerHTML
     })
 
 }
@@ -109,12 +114,19 @@ function updatePost(e) {
   const title = document.querySelector('#title')
   const content = document.querySelector('.textarea')
 
-  update(e.target.getAttribute('data-id'))
-  getAll(postList.value)
+  title.addEventListener('keyup', checkValid)
+  content.addEventListener('keyup', checkValid)
+
+  update(this.getAttribute('data-id'), {
+    title: title.value,
+    content: content.value
+  }).then((response) => {
+    getAll(postList.value)
     .then((response) => {
-      title.value = titleHeader.innerHTML
-      content.value = contentBody.innerHTML
+      title.value = ''
+      content.value = ''
     })
+  })
 }
 
 // CANCEL EDIT
@@ -123,9 +135,11 @@ function cancelEdit(e) {
   document.querySelector('#cancel').classList.add('hide')
   document.querySelector('.message').classList.remove('hide')
 
-      title.value = ''
-      content.value = ''
-      return getAll()
+  title.addEventListener('keyup', checkValid)
+  content.addEventListener('keyup', checkValid)
+
+  title.value = ''
+  content.value = ''
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -146,29 +160,42 @@ function removePost(e) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                                ADD BUTTON EVENTS
 ////////////////////////////////////////////////////////////////////////////////////////////
-function addBtnEvents() {
+function addBtnEvents(post) {
   const delBtn = document.querySelector('#del')
   const editBtn = document.querySelector('#edit')
-  const cancelBtn = document.querySelector('#cancel')
-  const editSubmit = document.querySelector('#update')
 
   delBtn.addEventListener('click', removePost)
-  editBtn.addEventListener('click', editPost)
-  cancelBtn.addEventListener('click', cancelEdit)
-  editSubmit.addEventListener('click', updatePost)
+  editBtn.addEventListener('click', () => editPost(post))
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 //                             RENDER POSTS AND MENU ARRAY                      
 ////////////////////////////////////////////////////////////////////////////////////////////
+function renderPostButton() {
+  const control = document.querySelector('#updateForm')
+  control.innerHTML = postButtonTemplate()
+
+}
+
+function displayButton(post) {
+
+  const control = document.querySelector('#updateForm')
+  control.innerHTML = updateTemplate(post)
+
+  const cancelBtn = document.querySelector('#cancel')
+  const editSubmit = document.querySelector('#update')
+
+  cancelBtn.addEventListener('click', cancelEdit)
+  editSubmit.addEventListener('click', updatePost)
+}
+
 function displayOne(post) {
   message.innerHTML = postTemplate(post)
-  addBtnEvents()
+  addBtnEvents(post)
 }
 
 function renderPost(posts) {
   const postListHtml = posts.map(post => menuTemplate(post))
-
   postList.innerHTML = postListHtml.join('')
 
   postList.addEventListener('change', (e) => {
