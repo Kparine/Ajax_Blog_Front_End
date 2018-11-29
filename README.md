@@ -1,13 +1,13 @@
-# Ajax_Blog_Front_End
+# __Ajax_Blog_Front_End__
 
 Personal Blog Site Created Using Express, NodeJS, Bulma, & SASS
 
 ## __Installation:__
 
-1. Please Initially Run ```npm install```
+* Please Initially Run ```npm install```
 
-2. To Run In 'Development Mode' ```npm run dev```
+* To Run In 'Development Mode' ```npm run dev```
 
-###__Deployed__
+### __Deployed:__
 
 parine-blog.surge.sh
