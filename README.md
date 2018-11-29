@@ -1,9 +1,9 @@
 # Ajax_Blog_Front_End
 
-Personal Blog Site created using Express.js, Node.js, and Bulma Sass
+Personal Blog Site created using Express, Node.js, Bulma, & SASS
 
-Installation:
+## __Installation:__
 
-Run ```npm install``
+I. Please Initially Run ```npm install```
 
-Run in 'Development Mode' ```npm run dev```
+II. To Run In 'Development Mode' ```npm run dev```
