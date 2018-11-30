@@ -4,7 +4,7 @@ Personal Blog Site Created Using Express, NodeJS, Bulma, & SASS
 
 ## __Installation:__
 
-* * Download
+* Download From GitHub
 
 * Download ```npm install sass```
 
