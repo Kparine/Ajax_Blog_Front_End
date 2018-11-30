@@ -174,7 +174,6 @@ function addBtnEvents(post) {
 function renderPostButton() {
   const control = document.querySelector('#updateForm')
   control.innerHTML = postButtonTemplate()
-
 }
 
 function displayButton(post) {

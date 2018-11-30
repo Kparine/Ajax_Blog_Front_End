@@ -4,9 +4,13 @@ Personal Blog Site Created Using Express, NodeJS, Bulma, & SASS
 
 ## __Installation:__
 
-* Please Initially Run ```npm install```
+* * Download
 
-* To Run In 'Development Mode' ```npm run dev```
+* Download ```npm install sass```
+
+* Run ```npm install```
+
+* Run In "Development Mode" ```npm run dev```
 
 ### __Deployed:__
 

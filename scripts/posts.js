@@ -21,7 +21,6 @@ function update(id, newPost) {
 function del(id) {
   return axios.delete(heroku + '/' + id)
 }
-
 module.exports = {
   getAll,
   getOne,
